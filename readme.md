@@ -1,10 +1,11 @@
-# How to Use 
-
+# Find My GCP Info - What Now?
 This is to be run in the Google Cloud "Cloud Shell".
 
 This will collect information about projects, service accounts, VMs, storage, and GKE clusters.
 
-All data is written to local files for downloading and using as you see fit(csv or json).
+All data is written to local files for downloading and using as you see fit (csv or json).
+
+
 
 ## Make it Executable
 Don't forget to make this file executable once it's in the Google Cloud Shell
@@ -21,9 +22,17 @@ The files created will be named:
 * gcp_storage.csv (or .json)
 * gcp_gke.csv (or .json)
 
+
 ## Making Changes
 Edit the script to change the PREFIX and ouput type:
 ```bash
 prefix="gcp_"    # Prepend to all the files to help organize output
 mytype="csv"     # csv or json
 ```
+
+
+## Resources:
+* https://cloud.google.com/sdk/gcloud/
+* https://cloud.google.com/sdk/gcloud/reference/projects/list
+* https://cloud.google.com/sdk/gcloud/reference/iam/service-accounts/list
+
