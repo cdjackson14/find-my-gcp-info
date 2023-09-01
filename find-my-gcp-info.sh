@@ -18,8 +18,8 @@
 ######################################################################
 # INIT - just setting a few things... boring but needed
 ######################################################################
-prefix="lci1_"
-mytype="csv"  # csv or json
+prefix="gcp_"    # Prepend to all the files to help organize output
+mytype="csv"     # csv or json
 
 
 ######################################################################
