@@ -13,6 +13,10 @@
 # Don't forget to make this file executable
 #      chmod 755 find-my-gcp-info.sh
 #
+# Sources:
+#    https://cloud.google.com/sdk/gcloud/
+#    https://cloud.google.com/sdk/gcloud/reference/projects/list
+#    https://cloud.google.com/sdk/gcloud/reference/iam/service-accounts/list
 
 
 ######################################################################
