@@ -40,7 +40,7 @@ echo Writing data to file: ${myfilename}
 ######################################################################
 echo Finding all the service accounts across all projects
 myfilename=${prefix}service-accounts.${mytype}
-for i in `gcloud projects list --format="get(name)"`
+for i in `gcloud projects list --format="get(project_id)"`
 do
 	gcloud iam service-accounts list --format="${mytype}(name,project_id)" --project $i >> ${myfilename}
 done
@@ -52,7 +52,7 @@ echo Writing data to file: ${myfilename}
 ######################################################################
 echo Finding all Compute machines across all projects
 myfilename=${prefix}compute.${mytype}
-for i in `gcloud projects list --format="get(name)"`
+for i in `gcloud projects list --format="get(project_id)"`
 do 
 	gcloud compute instances list --format="${mytype}( \
 		name, \
@@ -70,7 +70,7 @@ echo Writing data to file: ${myfilename}
 ######################################################################
 echo Finding all storage Buckets across all projects
 myfilename=${prefix}storage.${mytype}
-for i in `gcloud projects list --format="get(name)"`
+for i in `gcloud projects list --format="get(project_id)"`
 do 
 	echo ${i} >> ${myfilename}
 	echo "-----------------" >> ${myfilename}
@@ -85,7 +85,7 @@ echo Writing data to file: ${myfilename}
 ######################################################################
 echo Finding all GKE-Kubernetes across all projects
 myfilename=${prefix}gke.${mytype}
-for i in `gcloud projects list --format="get(name)"`
+for i in `gcloud projects list --format="get(project_id)"`
 do 
 	gcloud container clusters list --project=${i} --format="${mytype}(name,location,MASTER_VERSION,MASTER_IP,MACHINE_mytype,NODE_VERSION,NUM_NODES)" >> ${myfilename}
 done
