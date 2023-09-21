@@ -27,7 +27,13 @@ mytype="csv"     # csv or json
 
 
 ######################################################################
-# Find all projects
+# Create project_id array
+######################################################################
+projectArray=(`gcloud projects list --format="csv[no-heading][terminator=' '](project_id)"`)
+
+
+######################################################################
+# Output all projects
 ######################################################################
 echo Finding all the projects in your organization
 myfilename=${prefix}projects.${mytype}
@@ -40,7 +46,7 @@ echo Writing data to file: ${myfilename}
 ######################################################################
 echo Finding all the service accounts across all projects
 myfilename=${prefix}service-accounts.${mytype}
-for i in `gcloud projects list --format="get(project_id)"`
+for i in ${projectArray[@]}
 do
 	gcloud iam service-accounts list --format="${mytype}(name,project_id)" --project $i >> ${myfilename}
 done
@@ -52,7 +58,7 @@ echo Writing data to file: ${myfilename}
 ######################################################################
 echo Finding all Compute machines across all projects
 myfilename=${prefix}compute.${mytype}
-for i in `gcloud projects list --format="get(project_id)"`
+for i in ${projectArray[@]}
 do 
 	gcloud compute instances list --format="${mytype}( \
 		name, \
@@ -70,7 +76,7 @@ echo Writing data to file: ${myfilename}
 ######################################################################
 echo Finding all storage Buckets across all projects
 myfilename=${prefix}storage.${mytype}
-for i in `gcloud projects list --format="get(project_id)"`
+for i in ${projectArray[@]}
 do 
 	echo ${i} >> ${myfilename}
 	echo "-----------------" >> ${myfilename}
@@ -85,10 +91,9 @@ echo Writing data to file: ${myfilename}
 ######################################################################
 echo Finding all GKE-Kubernetes across all projects
 myfilename=${prefix}gke.${mytype}
-for i in `gcloud projects list --format="get(project_id)"`
+for i in ${projectArray[@]}
 do 
 	gcloud container clusters list --project=${i} --format="${mytype}(name,location,MASTER_VERSION,MASTER_IP,MACHINE_mytype,NODE_VERSION,NUM_NODES)" >> ${myfilename}
 done
 echo Writing data to file: ${myfilename}
-
 
