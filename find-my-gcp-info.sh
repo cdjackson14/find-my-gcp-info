@@ -24,7 +24,7 @@
 ######################################################################
 prefix="gcp_"    # Prepend to all the files to help organize output
 mytype="csv"     # csv or json
-
+Linetab='----> '
 
 ######################################################################
 # Create project_id array
@@ -35,28 +35,28 @@ projectArray=(`gcloud projects list --format="csv[no-heading][terminator=' '](pr
 ######################################################################
 # Output all projects
 ######################################################################
-echo Finding all the projects in your organization
+echo ${Linetab}Finding all the projects in your organization
 myfilename=${prefix}projects.${mytype}
 gcloud projects list --format="${mytype}(project_id,name,project_number)" > ${myfilename}
-echo Writing data to file: ${myfilename}
+echo ${Linetab}Writing data to file: ${myfilename}
 
 
 ######################################################################
 # Loop through all project to list all service accounts
 ######################################################################
-echo Finding all the service accounts across all projects
+echo ${Linetab}Finding all the service accounts across all projects
 myfilename=${prefix}service-accounts.${mytype}
 for i in ${projectArray[@]}
 do
 	gcloud iam service-accounts list --format="${mytype}(name,project_id)" --project $i >> ${myfilename}
 done
-echo Writing data to file: ${myfilename}
+echo ${Linetab}Writing data to file: ${myfilename}
 
 
 ######################################################################
 # Loop through all project to list all Compute (VMs)
 ######################################################################
-echo Finding all Compute machines across all projects
+echo ${Linetab}Finding all Compute machines across all projects
 myfilename=${prefix}compute.${mytype}
 for i in ${projectArray[@]}
 do 
@@ -68,13 +68,13 @@ do
 		networkInterfaces[].accessConfigs[0].natIP.notnull().list():label=EXTERNAL_IP, \
 		status)" > ${myfilename}
 done
-echo Writing data to file: ${myfilename}
+echo ${Linetab}Writing data to file: ${myfilename}
 
 
 ######################################################################
 # Loop through all project to list all storage Buckets
 ######################################################################
-echo Finding all storage Buckets across all projects
+echo ${Linetab}Finding all storage Buckets across all projects
 myfilename=${prefix}storage.${mytype}
 for i in ${projectArray[@]}
 do 
@@ -83,17 +83,17 @@ do
 	gsutil ls -p ${i} >> ${myfilename}
 	echo >> ${myfilename}
 done
-echo Writing data to file: ${myfilename}
+echo ${Linetab}Writing data to file: ${myfilename}
 
 
 ######################################################################
 # Loop through all project to list all GKE
 ######################################################################
-echo Finding all GKE-Kubernetes across all projects
+echo ${Linetab}Finding all GKE-Kubernetes across all projects
 myfilename=${prefix}gke.${mytype}
 for i in ${projectArray[@]}
 do 
 	gcloud container clusters list --project=${i} --format="${mytype}(name,location,MASTER_VERSION,MASTER_IP,MACHINE_mytype,NODE_VERSION,NUM_NODES)" >> ${myfilename}
 done
-echo Writing data to file: ${myfilename}
+echo ${Linetab}Writing data to file: ${myfilename}
 
